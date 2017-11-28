@@ -1,16 +1,38 @@
 <!DOCTYPE html>
+//pong
 <html>
   <head>
     <style>
       #myContain {
-        height: 600px;
-        width: 800px;
+        height: 400px;
+        width: 400px;
         position: relative;
-        background: black;
+        background: cornflowerblue;
       }  
+      #myAnimate {
+        height: 50px;
+        width: 50px;
+        position: relative;
+        background: cornflowerblue;
+      }
     </style>
   </head>
   <body>
-    <div id="myContain"><div>
+    <div id="myContain">
+      <div id="myAnimate"></div>
+    </div>
+    <script>
+      var pos = 0;
+      var elem = document.getElementById('myAnimate');
+      var id = setInterval(update, 10);
+      function frame() {
+        if (pos == 350) {
+          clearInterval('id')
+        } else {
+          pos++;
+          elem.style.left = pos + 'px';
+        }
+      }
+    </script>
   </body>
 </html>
