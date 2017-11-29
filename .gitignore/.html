@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-//pong
 <html>
   <head>
     <style>
@@ -12,19 +11,23 @@
       #myAnimate {
         height: 50px;
         width: 50px;
-        position: relative;
-        background: cornflowerblue;
+        position: absolute;
+        background: yellow;
       }
     </style>
   </head>
   <body>
+  <p>
+    <button onClick="myMove()">Press Me</button>
+  </p>  
     <div id="myContain">
       <div id="myAnimate"></div>
     </div>
     <script>
+    function myMove() {
       var pos = 0;
-      var elem = document.getElementById('myAnimate');
-      var id = setInterval(update, 10);
+      var elem = document.getElementById("myAnimate");
+      var id = setInterval(frame, 10);
       function frame() {
         if (pos == 350) {
           clearInterval('id')
@@ -33,6 +36,7 @@
           elem.style.left = pos + 'px';
         }
       }
+    }  
     </script>
   </body>
 </html>
