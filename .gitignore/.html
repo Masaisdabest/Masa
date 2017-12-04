@@ -24,15 +24,22 @@
       <div id="myAnimate"></div>
     </div>
     <script>
+    var xv = 1;  
     function myMove() {
       var pos = 0;
       var elem = document.getElementById("myAnimate");
       var id = setInterval(frame, 10);
       function frame() {
         if (pos == 350) {
-          clearInterval('id')
+          xv/=-1;
+          pos+=xv;
+          elem.style.left = pos + 'px';
+        } else if (pos == 0 && xv == -1) {
+          xv/=-1;
+          pos+=xv;
+          elem.style.left = pos + 'px';
         } else {
-          pos++;
+          pos+=xv;
           elem.style.left = pos + 'px';
         }
       }
