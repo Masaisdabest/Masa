@@ -20,30 +20,48 @@
   <p>
     <button onClick="myMove()">Press Me</button>
   </p>  
-    <div id="myContain">
-      <div id="myAnimate"></div>
+    <div id="myContain" onClick="myMove()">
+      <div id="myAnimate" onclick="myStopA()"></div>
     </div>
     <script>
-    var xv = 1;  
+    var stop = 0;  
+    var pos = 0;
+    var xv = 7;  
+    var yv = 7;  
+    var elem = document.getElementById("myAnimate");
     function myMove() {
-      var pos = 0;
-      var elem = document.getElementById("myAnimate");
-      var id = setInterval(frame, 10);
-      function frame() {
-        if (pos == 350) {
-          xv/=-1;
-          pos+=xv;
-          elem.style.left = pos + 'px';
-        } else if (pos == 0 && xv == -1) {
-          xv/=-1;
-          pos+=xv;
-          elem.style.left = pos + 'px';
-        } else {
-          pos+=xv;
-          elem.style.left = pos + 'px';
+      if (stop = 0) {
+        stop++;
+        var id = setInterval(frame, 10);
+        function frame() {
+          if (stop == 3) {
+            alert('win');
+            clearInterval(id);
+          }  
+          if (pos == 350) {
+            xv/=-1;
+            pos+=xv;
+            elem.style.left = pos + 'px';
+            elem.style.top = pos + 'px';
+          } else if (pos == 0 && xv < 0) {
+            xv/=-1;
+            pos+=xv;
+            elem.style.left = pos + 'px';
+            elem.style.top = pos + 'px';     
+          } else {
+            pos+=xv;
+            elem.style.left = pos + 'px';
+            elem.style.top = pos + 'px';
+          }
         }
-      }
+      }  
     }  
+    function myStopA() {
+      if (stop > 0) {
+        stop++;
+        xv=0;
+      }
+    }
     </script>
   </body>
 </html>
