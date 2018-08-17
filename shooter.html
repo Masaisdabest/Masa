@@ -82,11 +82,12 @@
             play.style.left = epos + 'px';
           }
           if (pew < 0) {
-            if (xpos < 6) {
-              
+            if (ypos < 6) {
+              ypos = 372.5 + px;
+              xpos = epos + 22.5;
             }
-            shot.style.top = xpos + 'px';
-            xpos--;
+            shot.style.top = ypos + 'px';
+            ypos-=2;
           } else {
             shot.style.left = epos + 22.5 + 'px';            
           }
