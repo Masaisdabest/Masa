@@ -34,10 +34,10 @@
   <body> 
   <p>
     <button onClick="myMove()">Start</button>
-    Press screen to Start, Tap movables to stop them tap both to win!     </p>
-    <div id="myContain">
-      <div id="myAnimate" onclick="myStopA()"></div>
-      <div id="myAnimaty" onclick="myStopB()"></div>
+    Tap screen to shoot hit target to win!     </p>
+    <div id="myContain" onclick="myShot()">
+      <div id="myAnimate"></div>
+      <div id="myAnimaty"></div>
       <div id="myBullet"></div>
     </div>
     <script>
@@ -50,6 +50,14 @@
     var yv = 1;
     var pew = 1;
     function myMove() {
+      var stop = 0;
+      var epos = 0;
+      var ypos = 372.5;
+      var xpos = 22.5;
+      var pos = 0;
+      var xv = 5;  
+      var yv = 1;
+    
       var elem = document.getElementById("myAnimate");
       var play = document.getElementById("myAnimaty");
       var shot = document.getElementById("myBullet");
@@ -81,23 +89,34 @@
             epos+=yv;
             play.style.left = epos + 'px';
           }
-          if (pew < 0) {
-            if (ypos < 6) {
-              ypos = 372.5 + px;
-              xpos = epos + 22.5;
+          if (pew == -1) {
+            if (ypos <= 51) {
+              if (xpos <= pos + 50  && xpos >= pos) {
+                alert('win you Hit');
+                stop--;
+                clearInterval(id);
+              } else if (ypos <= 6) {
+                ypos = 372.5;
+                xpos = epos + 22.5;
+                pew/=-1;
+              } else {
+                ypos-=3;
+                shot.style.top = ypos + 'px';
+              } 
+            } else {
+              ypos-=3;
+              shot.style.top = ypos + 'px';
             }
-            shot.style.top = ypos + 'px';
-            ypos-=2;
           } else {
-            shot.style.left = epos + 22.5 + 'px';            
+            shot.style.left = epos + 22.5 + 'px'; 
+            shot.style.top = ypos + 'px';
           }
         }
       }  
     }  
-    function myStopA() {
-      if (stop >= 1 && xv >=1) {
-        stop++;
-        xv=0;
+    function myShot() {
+      if (pew == 1) {
+        pew/=-1;
       }
     }
     </script>
