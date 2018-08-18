@@ -45,6 +45,7 @@
   <p>
     Tap screen to Start; Space to shoot; a and d  to move hit target to win!    
   </p>
+  <p id="lifeCount">lives: 3 Enemy: 3</p>
     <div id="myContain" onClick="myMove()">
       <div id="myAnimate"></div>
       <div id="myAnimaty"></div>
@@ -52,6 +53,8 @@
       <div id="myBulletB"></div>
     </div>
     <script>
+    var life = 3;
+    var elife = 3;
     var points = 0;
     var stop = 0;
     var epos = 150;
@@ -60,11 +63,12 @@
     var xyz = 0;
     var xyzY = 22.5;
     var xyzX = 22.5;
-    var xv = 7;  
-    var yv = 5;
+    var xv = 5;  
+    var yv = 10;
     var pew = 1; 
     var epew = 1;
     var bod = document.getElementById("myContain");
+    var dob = document.getElementById("lifeCount");
     var elem = document.getElementById("myAnimate");
     var play = document.getElementById("myAnimaty");
     var shot = document.getElementById("myBullet");
@@ -81,7 +85,7 @@
         epos = 150;
         play.style.left = epos + 'px';
         stop++;
-        var id = setInterval(frame, 10);
+        var id = setInterval(frame, 2);
         function frame() {  
           if (xyz == 350) {
             xv/=-1;
@@ -104,10 +108,21 @@
           if (pew == -1) {
             if (ypos <= 50) {
               if (xpos <= xyz + 50 && xpos + 5 >= xyz) {
-                bod.innerHTML ='You Hit, only took ' + points + ' shots';
-                stop--;
-                points = 0;  
-                clearInterval(id);
+                elife--;
+                dob.innerHTML = "Life: " + life + " Enemy: " + elife;
+                xyzY = 0;
+                xyzX = xyz + 22.5;
+                ypos = 372.5;
+                pew/=-1;
+                spot.style.top = xyzY + 'px';
+                spot.style.left = xyzX + 'px';
+                epew/=-1;
+                if (elife == 0) {
+                  bod.innerHTML ='You Hit, only took ' + points + ' shots';
+                  stop--;
+                  points = 0;  
+                  clearInterval(id);
+                }
               } else if (ypos <= 11) {
                 ypos = 372.5;
                 pew/=-1;
@@ -127,10 +142,21 @@
           if (epew == -1) {
             if (xyzY >= 350) {
               if (xyzX <= epos + 50 && xyzX + 5 >= epos) {
-                bod.innerHTML = 'You are hit and died';
-                stop--;
-                points = 0;  
-                clearInterval(id);
+                life--;
+                dob.innerHTML = "Life: " + life + " Enemy: " + elife;
+                xyzY = 0;
+                xyzX = xyz + 22.5;
+                ypos = 372.5;
+                pew/=-1;
+                spot.style.top = xyzY + 'px';
+                spot.style.left = xyzX + 'px';
+                epew/=-1;
+                if (life == 0) {
+                  bod.innerHTML = 'You are hit and died';
+                  stop--;
+                  points = 0;  
+                  clearInterval(id);
+                }
               } else if (xyzY >= 377.5) {
                 xyzY = 0;
                 xyzX = xyz + 22.5;
