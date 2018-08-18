@@ -60,10 +60,11 @@
     var xyz = 0;
     var xyzY = 22.5;
     var xyzX = 22.5;
-    var xv = 5;  
+    var xv = 7;  
     var yv = 5;
     var pew = 1; 
     var epew = 1;
+    var bod = document.getElementById("myContain");
     var elem = document.getElementById("myAnimate");
     var play = document.getElementById("myAnimaty");
     var shot = document.getElementById("myBullet");
@@ -103,7 +104,7 @@
           if (pew == -1) {
             if (ypos <= 50) {
               if (xpos <= xyz + 50 && xpos + 5 >= xyz) {
-                alert('You Hit, only took ' + points + ' shots');
+                bod.innerHTML ='You Hit, only took ' + points + ' shots';
                 stop--;
                 points = 0;  
                 clearInterval(id);
@@ -126,7 +127,7 @@
           if (epew == -1) {
             if (xyzY >= 350) {
               if (xyzX <= epos + 50 && xyzX + 5 >= epos) {
-                alert('You are hit and died');
+                bod.innerHTML = 'You are hit and died';
                 stop--;
                 points = 0;  
                 clearInterval(id);
