@@ -34,27 +34,28 @@
   <body> 
   <p>
     <button onClick="myMove()">Start</button>
-    Tap screen to shoot hit target to win!     </p>
+    Tap screen to shoot hit target to win!    
+  </p>
     <div id="myContain" onclick="myShot()">
       <div id="myAnimate"></div>
       <div id="myAnimaty"></div>
       <div id="myBullet"></div>
     </div>
     <script>
+    var points = 0;
     var stop = 0;
     var epos = 0;
     var ypos = 372.5;
     var xpos = 22.5;
-    var pos = 0;
+    var xyz = 0;
     var xv = 5;  
     var yv = 1;
     var pew = 1;
     function myMove() {
-      var stop = 0;
       var epos = 0;
       var ypos = 372.5;
       var xpos = 22.5;
-      var pos = 0;
+      var xyz = 0;
       var xv = 5;  
       var yv = 1;
     
@@ -62,26 +63,25 @@
       var play = document.getElementById("myAnimaty");
       var shot = document.getElementById("myBullet");
       if (stop == 0) {
-        stop++;
         var id = setInterval(frame, 10);
         function frame() {  
-          if (pos == 350) {
+          if (xyz == 350) {
             xv/=-1;
-            pos+=xv;
-            elem.style.left = pos + 'px';
-          } else if (pos == 0 && xv < 0) {
+            xyz+=xv;
+            elem.style.left = xyz + 'px';
+          } else if (xyz == 0 && xv < 0) {
             xv/=-1;
-            pos+=xv;
-            elem.style.left = pos + 'px';   
+            xyz+=xv;
+            elem.style.left = xyz + 'px';   
           } else {
-            pos+=xv;
-            elem.style.left = pos + 'px';
+            xyz+=xv;
+            elem.style.left = xyz + 'px';
           }
           if (epos == 350) {
             yv/=-1;
             epos+=yv;
             play.style.left = epos + 'px';
-          } else if (epos == 0 && yv < 0) {
+          } else if (epos == 0 && yv == -1) {
             yv/=-1;
             epos+=yv;
             play.style.left = epos + 'px';
@@ -91,24 +91,24 @@
           }
           if (pew == -1) {
             if (ypos <= 51) {
-              if (xpos <= pos + 50  && xpos >= pos) {
-                alert('win you Hit');
+              if (xpos <= xyz + 50 && xpos + 5 >= xyz) {
+                alert('You Hit, only took ' + points + ' shots');
                 stop--;
                 clearInterval(id);
               } else if (ypos <= 6) {
                 ypos = 372.5;
-                xpos = epos + 22.5;
                 pew/=-1;
               } else {
-                ypos-=3;
+                ypos-=6;
                 shot.style.top = ypos + 'px';
               } 
             } else {
-              ypos-=3;
+              ypos-=6;
               shot.style.top = ypos + 'px';
             }
           } else {
-            shot.style.left = epos + 22.5 + 'px'; 
+            xpos = epos + 22.5;
+            shot.style.left = xpos + 'px'; 
             shot.style.top = ypos + 'px';
           }
         }
@@ -117,6 +117,7 @@
     function myShot() {
       if (pew == 1) {
         pew/=-1;
+        points++;
       }
     }
     </script>
