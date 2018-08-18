@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #myContain {
+        height: 400px;
+        width: 400px;
+        position: relative;
+        background: cornflowerblue;
+      }  
+      #myAnimate {
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        background: yellow;
+      }
+      #myAnimaty {
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        background: red;
+        top: 350px;
+        left: 150px;
+      }
+      #myBullet {
+        height: 5px;
+        width: 5px;
+        position: absolute;
+        background: grey;
+        top: 372.5px;
+        left: 172.5px;
+      }
+      #myBulletB {
+        height: 5px;
+        width: 5px;
+        position: absolute;
+        background: white;
+        border: black 1px solid;
+        top: 22.5px;
+        left: 22.5px;
+      }
+    </style>
+  </head>
+  <body onKeyDown="myPlay(event)"> 
+  <p>
+    Tap screen to Start; Space to shoot; a and d  to move hit target to win!    
+  </p>
+    <div id="myContain" onClick="myMove()">
+      <div id="myAnimate"></div>
+      <div id="myAnimaty"></div>
+      <div id="myBullet"></div>
+      <div id="myBulletB"></div>
+    </div>
+    <script>
+    var points = 0;
+    var stop = 0;
+    var epos = 150;
+    var ypos = 372.5;
+    var xpos = 172.5;
+    var xyz = 0;
+    var xyzY = 22.5;
+    var xyzX = 22.5;
+    var xv = 5;  
+    var yv = 5;
+    var pew = 1; 
+    var epew = 1;
+    var elem = document.getElementById("myAnimate");
+    var play = document.getElementById("myAnimaty");
+    var shot = document.getElementById("myBullet");
+    var spot = document.getElementById("myBulletB");
+    function myMove() {
+      if (stop == 0) {
+        xyzY = 22.5;
+        xyzX = 22.5;
+        ypos = 372.5;
+        xpos = 172.5;
+        pew = 1; 
+        epew = 1;
+        xyz = 0;
+        epos = 150;
+        play.style.left = epos + 'px';
+        stop++;
+        var id = setInterval(frame, 10);
+        function frame() {  
+          if (xyz == 350) {
+            xv/=-1;
+            xyz+=xv;
+            elem.style.left = xyz + 'px';
+          } else if (xyz == 0 && xv < 0) {
+            xv/=-1;
+            xyz+=xv;
+            elem.style.left = xyz + 'px';
+          } else if (epew == 1) {
+            epew/=-1;
+            xyzY+=7;
+            spot.style.top = xyzY + 'px';
+            xyz+=xv;
+            elem.style.left = xyz + 'px';
+          } else {
+            xyz+=xv;
+            elem.style.left = xyz + 'px';
+          }
+          if (pew == -1) {
+            if (ypos <= 50) {
+              if (xpos <= xyz + 50 && xpos + 5 >= xyz) {
+                alert('You Hit, only took ' + points + ' shots');
+                stop--;
+                points = 0;  
+                clearInterval(id);
+              } else if (ypos <= 11) {
+                ypos = 372.5;
+                pew/=-1;
+              } else {
+                ypos-=7;
+                shot.style.top = ypos + 'px';
+              } 
+            } else {
+              ypos-=7;
+              shot.style.top = ypos + 'px';
+            }
+          } else {
+            xpos = epos + 22.5;
+            shot.style.left = xpos + 'px'; 
+            shot.style.top = ypos + 'px';
+          }
+          if (epew == -1) {
+            if (xyzY >= 350) {
+              if (xyzX <= epos + 50 && xyzX + 5 >= epos) {
+                alert('You are hit and died');
+                stop--;
+                points = 0;  
+                clearInterval(id);
+              } else if (xyzY >= 377.5) {
+                xyzY = 0;
+                xyzX = xyz + 22.5;
+                spot.style.top = xyzY + 'px';
+                spot.style.left = xyzX + 'px';
+                epew/=-1;
+              } else {
+                xyzY+=7;
+                spot.style.top = xyzY + 'px';
+              } 
+            } else {
+              xyzY+=7;
+              spot.style.top = xyzY + 'px';
+            }
+          } else {
+            xyzX = xyz + 22.5;
+            spot.style.top = xyzY + 'px';
+            spot.style.left = xyzX + 'px';
+          } 
+        }
+      }  
+    }  
+    function myPlay(event) {
+      var key = event.keyCode;
+      if (key == 65) {
+        yv = -5;
+        if (epos < 6) {
+          epos = 350;
+          play.style.left = epos + 'px';
+          xpos = epos + 22.5;
+        } else {
+          epos+=yv;
+          play.style.left = epos + 'px';
+        }        
+      }
+      if (key == 68) {
+        yv = 5;        
+        if (epos > 344) {
+          epos = 1;
+          play.style.left = epos + 'px';
+        } else {
+          epos+=yv;
+          play.style.left = epos + 'px';
+        }
+      }
+      if (key == 32) {
+        if (pew == 1) {
+          pew/=-1;
+          points++;
+        }
+      }
+    }         
+    </script>
+  </body>
+</html>
