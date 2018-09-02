@@ -85,7 +85,7 @@
         epos = 150;
         play.style.left = epos + 'px';
         stop++;
-        var id = setInterval(frame, 2);
+        var id = setInterval(frame, 10);
         function frame() {  
           if (xyz == 350) {
             xv/=-1;
